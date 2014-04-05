@@ -1,11 +1,19 @@
 angular.module('starter.controllers', [])
 
-.controller('ChatListCtrl', function($scope, Chats) {
+.controller('ChatsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
 })
 
 .controller('ChatCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
+
+  var tabs = document.querySelectorAll('div.tabs')[0];
+  tabs = angular.element(tabs);
+  tabs.css('display', 'none');
+  
+  $scope.$on('$destroy', function() {
+    tabs.css('display', '');
+  });
 })
 
 .controller('FriendsCtrl', function($scope, Friends) {
@@ -14,9 +22,7 @@ angular.module('starter.controllers', [])
 
 .controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
   $scope.friend = Friends.get($stateParams.friendId);
-});
+})
 
-/*
-.controller('AccountCtrl', function($scope) {
+.controller('SettingsCtrl', function($scope) {
 });
-*/
