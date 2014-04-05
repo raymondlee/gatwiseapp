@@ -1,8 +1,22 @@
 angular.module('starter.services', [])
 
-/**
- * A simple example service that returns some data.
- */
+.factory('Chats', function() {
+
+  var chats = [
+    { id: 0, name: 'Hiking' },
+    { id: 1, name: 'Running' }
+  ];
+
+  return {
+    all: function() {
+      return chats;
+    },
+    get: function(aChatId) {
+      return chats[aChatId];
+    }
+  }
+})
+
 .factory('Friends', function() {
   // Might use a resource here that returns a JSON array
 
