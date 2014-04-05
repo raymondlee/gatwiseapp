@@ -28,11 +28,28 @@ angular.module('starter.controllers', [])
   $scope.friend = Friends.get($stateParams.friendId);
 })
 
-.controller('SettingsCtrl', function($scope, $location) {
+.controller('SettingsCtrl', function($scope, $location, $ionicModal) {
   $scope.save = function() {
     $location.url('/tab/chats');
   }
   $scope.cancel = function() {
     $location.url('/tab/chats');
   }
+
+  $ionicModal.fromTemplateUrl('modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
 });
