@@ -36,7 +36,7 @@ angular.module('starter.controllers', [])
     $location.url('/tab/chats');
   }
 
-  $ionicModal.fromTemplateUrl('modal.html', {
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
