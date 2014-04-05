@@ -67,14 +67,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
-    .state('tab.settings', {
+    .state('settings', {
       url: "/settings",
-      views: {
-        'settings': {
-          templateUrl: 'templates/settings.html',
-          controller: 'SettingsCtrl'
-        }
-      }
+      templateUrl: 'templates/settings.html',
+      controller: 'SettingsCtrl'
     })
 
   // if none of the above states are matched, use this as the fallback

@@ -1,7 +1,11 @@
 angular.module('starter.controllers', [])
 
-.controller('ChatsCtrl', function($scope, Chats) {
+.controller('ChatsCtrl', function($scope, $location, Chats) {
   $scope.chats = Chats.all();
+
+  $scope.showSettings = function() {
+    $location.url('/settings');
+  }
 })
 
 .controller('ChatCtrl', function($scope, $stateParams, Chats) {
@@ -24,5 +28,11 @@ angular.module('starter.controllers', [])
   $scope.friend = Friends.get($stateParams.friendId);
 })
 
-.controller('SettingsCtrl', function($scope) {
+.controller('SettingsCtrl', function($scope, $location) {
+  $scope.save = function() {
+    $location.url('/tab/chats');
+  }
+  $scope.cancel = function() {
+    $location.url('/tab/chats');
+  }
 });
