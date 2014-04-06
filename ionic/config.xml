@@ -2,10 +2,10 @@
 <widget id="com.ionicframework.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Gatwise</name>
     <description>
-        An Ionic Framework and Cordova project.
+       GatWise makes organizing events extremely easy.
     </description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+    <author email="info@devcotech.com" href="http://www.devcotech.com/">
+      Devco Technology Team
     </author>
     <content src="index.html" />
     <access origin="*" />
