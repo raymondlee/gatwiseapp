@@ -76,5 +76,27 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/chats');
 
+})
+
+.directive('googleplace', function() {
+  return {
+    require: 'ngModel',
+    link: function($scope, aElement, aAttrs, aModel) {
+      var options = {
+        types: [],
+        componentRestrictions: {}
+      };
+      $scope.gPlace = new google.maps.places.Autocomplete(aElement[0], options);
+ 
+      google.maps.event.addListener($scope.gPlace, 'place_changed', function() {
+        $scope.$apply(function() {
+          aModel.$setViewValue(aElement.val());
+          var place = $scope.gPlace.getPlace();
+          console.log(place.geometry.location.lat() + "," + place.geometry.location.lat())
+        });
+      });
+    }
+  };
 });
+
 
