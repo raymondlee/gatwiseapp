@@ -8,7 +8,7 @@ angular.module('gatwise.controllers', [])
   }
 })
 
-.controller('ChatCtrl', function($scope, $firebase, $stateParams, ChatService) {
+.controller('ChatCtrl', function($scope, $firebase, $ionicModal, $stateParams, ChatService) {
   $scope.chat = ChatService.get($stateParams.chatId);
 
   var tabs = document.querySelectorAll('div.tabs')[0];
@@ -30,6 +30,18 @@ angular.module('gatwise.controllers', [])
   $scope.$on('$destroy', function() {
     tabs.css('display', '');
   });
+
+  // modal view for creating events
+  $ionicModal.fromTemplateUrl('templates/create-event.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(aModal) {
+    $scope.createEventModal = aModal;    
+  });
+
+  $scope.addEvent = function() {
+    $scope.createEventModal.show();
+  };
 })
 
 .controller('FriendsCtrl', function($scope, Friends) {
