@@ -56,7 +56,7 @@ angular.module('gatwise.controllers', [])
   };
 })
 
-.controller('FriendsCtrl', function($scope, Friends) {
+.controller('EventsCtrl', function($scope, Friends) {
   $scope.friends = Friends.all();
 })
 
