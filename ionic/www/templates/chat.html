@@ -3,6 +3,7 @@
     <button class="button-icon icon ion-coffee" style="color: #FFF" ng-click="addEvent();"></button>
   </ion-nav-buttons>
   <ion-content class="has-header" padding="true">
+    <div ng-repeat="event in events">Name: {{event.name}}<br/>Where: {{event.where}}<br/>When: {{event.when}}<hr/></div>
     <div>
        <input id="chat-input-box" type="text" ng-model="chat.newMessage" ng-keydown="addMessage($event);" placeholder="Message..."></input>
        <button class="button chat-enter-button" ng-click="addMessage();">Go</button>
