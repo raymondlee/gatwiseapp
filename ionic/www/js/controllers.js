@@ -17,7 +17,7 @@ angular.module('gatwise.controllers', [])
   
   var ref = new Firebase("https://gatwise.firebaseio.com/chats/" + $stateParams.chatId);
   $scope.messages = $firebase(ref);
-  $scope.username = 'User' + Math.floor(Math.random() * 101); 
+  $scope.username = device.uuid;
 
   $scope.addMessage = function(e) {
     if (e && e.keyCode != 13) return;
