@@ -1,4 +1,7 @@
 <ion-view title="{{chat.name}}">
+  <ion-nav-buttons side="right">
+    <button class="button-icon icon ion-coffee" style="color: #FFF" ng-click="addEvent();"></button>
+  </ion-nav-buttons>
   <ion-content class="has-header" padding="true">
     <div>
        <input id="chat-input-box" type="text" ng-model="chat.newMessage" ng-keydown="addMessage($event);" placeholder="Message..."></input>
