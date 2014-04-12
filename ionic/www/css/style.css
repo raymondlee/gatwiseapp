@@ -3,3 +3,12 @@
   width: 90%;
   height: 300px;
 }
+
+#chat-input-box {
+  border: 1px solid #708090;
+}
+
+.chat-enter-button {
+  width: 10px;
+  float: right;
+}

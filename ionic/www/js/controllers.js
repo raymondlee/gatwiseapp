@@ -20,7 +20,7 @@ angular.module('gatwise.controllers', [])
   $scope.username = 'User' + Math.floor(Math.random() * 101); 
 
   $scope.addMessage = function(e) {
-    if (e.keyCode != 13) return;
+    if (e && e.keyCode != 13) return;
     $scope.messages.$add({
       username: $scope.username,
       message: $scope.chat.newMessage});
