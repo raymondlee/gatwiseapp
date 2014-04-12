@@ -8,17 +8,15 @@ angular.module('gatwise.controllers', [])
   }
 })
 
-.controller('ChatCtrl', function($scope, $firebase, $ionicModal, $stateParams, ChatService) {
+.controller('ChatCtrl', function($scope, $ionicModal, $stateParams, ChatService, FirebaseService) {
   $scope.chat = ChatService.get($stateParams.chatId);
 
   var tabs = document.querySelectorAll('div.tabs')[0];
   tabs = angular.element(tabs);
   tabs.css('display', 'none');
-  
-  var firebaseMessages = new Firebase("https://gatwise.firebaseio.com/chats/chat" + $stateParams.chatId + "/messages");
-  var firebaseEvents = new Firebase("https://gatwise.firebaseio.com/chats/chat" + $stateParams.chatId + "/events");
-  $scope.messages = $firebase(firebaseMessages);
-  $scope.events = $firebase(firebaseEvents);
+
+  $scope.messages = FirebaseService.getMessages($stateParams.chatId);
+  $scope.events = FirebaseService.getEvents($stateParams.chatId);
   $scope.username = device.uuid;
 
   $scope.addMessage = function(e) {

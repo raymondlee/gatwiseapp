@@ -1,5 +1,18 @@
 angular.module('gatwise.services', [])
 
+.factory('FirebaseService', function($firebase) {
+  return {
+    getMessages: function(aChatId) {
+      var ref = new Firebase("https://gatwise.firebaseio.com/chats/chat" + aChatId + "/messages");
+      return $firebase(ref);      
+    },
+    getEvents: function(aChatId) {
+        var ref = new Firebase("https://gatwise.firebaseio.com/chats/chat" + aChatId + "/events");
+        return $firebase(ref);
+    }
+  };
+})
+
 .factory('ChatService', function() {
 
   var chats = [
