@@ -1,4 +1,4 @@
-angular.module('starter.services', [])
+angular.module('gatwise.services', [])
 
 .factory('ChatService', function() {
 

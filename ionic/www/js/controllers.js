@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('gatwise.controllers', [])
 
 .controller('ChatsCtrl', function($scope, $location, ChatService) {
   $scope.chats = ChatService.all();
@@ -8,13 +8,25 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('ChatCtrl', function($scope, $stateParams, ChatService) {
+.controller('ChatCtrl', function($scope, $firebase, $stateParams, ChatService) {
   $scope.chat = ChatService.get($stateParams.chatId);
 
   var tabs = document.querySelectorAll('div.tabs')[0];
   tabs = angular.element(tabs);
   tabs.css('display', 'none');
   
+  var ref = new Firebase("https://gatwise.firebaseio.com/chats/" + $stateParams.chatId);
+  $scope.messages = $firebase(ref);
+  $scope.username = 'User' + Math.floor(Math.random() * 101); 
+
+  $scope.addMessage = function(e) {
+    if (e.keyCode != 13) return;
+    $scope.messages.$add({
+      username: $scope.username,
+      message: $scope.newMessage});
+    $scope.newMessage = "";
+  };
+
   $scope.$on('$destroy', function() {
     tabs.css('display', '');
   });
