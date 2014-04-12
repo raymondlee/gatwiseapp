@@ -15,8 +15,10 @@ angular.module('gatwise.controllers', [])
   tabs = angular.element(tabs);
   tabs.css('display', 'none');
   
-  var ref = new Firebase("https://gatwise.firebaseio.com/chats/chat" + $stateParams.chatId + "/messages");
-  $scope.messages = $firebase(ref);
+  var firebaseMessages = new Firebase("https://gatwise.firebaseio.com/chats/chat" + $stateParams.chatId + "/messages");
+  var firebaseEvents = new Firebase("https://gatwise.firebaseio.com/chats/chat" + $stateParams.chatId + "/events");
+  $scope.messages = $firebase(firebaseMessages);
+  $scope.events = $firebase(firebaseEvents);
   $scope.username = device.uuid;
 
   $scope.addMessage = function(e) {
@@ -41,6 +43,16 @@ angular.module('gatwise.controllers', [])
 
   $scope.addEvent = function() {
     $scope.createEventModal.show();
+  };
+
+
+  $scope.submitEvent = function() {
+    $scope.createEventModal.hide();
+    $scope.events.$add({
+      name: $scope.chat.event.name,
+      when: $scope.chat.event.when,
+      where: $scope.chat.event.where});
+    $scope.createEventModal.remove();
   };
 })
 
