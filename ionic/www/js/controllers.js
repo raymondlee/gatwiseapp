@@ -15,7 +15,7 @@ angular.module('gatwise.controllers', [])
   tabs = angular.element(tabs);
   tabs.css('display', 'none');
   
-  var ref = new Firebase("https://gatwise.firebaseio.com/chats/" + $stateParams.chatId);
+  var ref = new Firebase("https://gatwise.firebaseio.com/chats/chat" + $stateParams.chatId + "/messages");
   $scope.messages = $firebase(ref);
   $scope.username = device.uuid;
 
