@@ -1,6 +1,6 @@
 <ion-view title="{{chat.name}}">
   <ion-content class="has-header" padding="true">
-    <input type="text" style="border: 1px solid black;" ng-model="newMessage" ng-keydown="addMessage($event)" placeholder="Message...">
+    <input type="text" style="border: 1px solid black;" ng-model="chat.newMessage" ng-keydown="addMessage($event)" placeholder="Message...">
     <div id="messagesDiv">
       <div ng-repeat="message in messages"><em>{{message.username}}</em>: {{message.message}}</div>
     </div>

@@ -23,8 +23,8 @@ angular.module('gatwise.controllers', [])
     if (e.keyCode != 13) return;
     $scope.messages.$add({
       username: $scope.username,
-      message: $scope.newMessage});
-    $scope.newMessage = "";
+      message: $scope.chat.newMessage});
+    $scope.chat.newMessage = "";
   };
 
   $scope.$on('$destroy', function() {
