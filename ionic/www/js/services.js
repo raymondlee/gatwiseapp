@@ -20,10 +20,9 @@ angular.module('gatwise.services', [])
 })
 
 .factory('ChatService', function() {
-
   var chats = [
-    { id: 0, name: 'Hiking' },
-    { id: 1, name: 'Running' }
+    { id: 'chat0', name: 'Hiking' },
+    { id: 'chat1', name: 'Running' }
   ];
 
   return {
@@ -31,7 +30,15 @@ angular.module('gatwise.services', [])
       return chats;
     },
     get: function(aChatId) {
-      return chats[aChatId];
+      var chat;
+      angular.forEach(chats, function(aValue, aName) {
+        if (aValue['id'] == aChatId) {
+          chat = aValue;
+          // todo check
+          return true;
+        }
+      });
+      return chat;
     }
   }
 })
