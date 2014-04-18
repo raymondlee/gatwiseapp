@@ -15,8 +15,8 @@ angular.module('gatwise.controllers', [])
   tabs = angular.element(tabs);
   tabs.css('display', 'none');
 
-  $scope.messages = FirebaseService.getMessages($stateParams.chatId);
-  $scope.events = FirebaseService.getEvents($stateParams.chatId);
+  $scope.messages = FirebaseService.getRoot().$child('chats').$child('chat' + $stateParams.chatId);
+  $scope.events = FirebaseService.getRoot().$child('events');
   $scope.username = device.uuid;
 
   $scope.addMessage = function(e) {
@@ -49,7 +49,8 @@ angular.module('gatwise.controllers', [])
     $scope.events.$add({
       name: $scope.chat.event.name,
       when: $scope.chat.event.when,
-      where: $scope.chat.event.where});
+      where: $scope.chat.event.where}
+    );
     $scope.createEventModal.remove();
   };
 })
