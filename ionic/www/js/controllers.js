@@ -15,9 +15,9 @@ angular.module('gatwise.controllers', [])
   tabs = angular.element(tabs);
   tabs.css('display', 'none');
 
-  $scope.chatroom = FirebaseService.getRoot().$child('chats').$child($stateParams.chatId);
+  $scope.chatroom = FirebaseService.getChats().$child($stateParams.chatId);
   $scope.messages =  $scope.chatroom.$child('messages');
-  $scope.events = FirebaseService.getRoot().$child('events');
+  $scope.events = FirebaseService.getEvents();
   $scope.username = "Hi ";
 
   $scope.addMessage = function(e) {
@@ -55,26 +55,22 @@ angular.module('gatwise.controllers', [])
       where: $scope.chat.event.where,
       chatId: $stateParams.chatId
     }).then(function(aRef) {
-      $scope.chatroom.$child('events').$child(aRef.name()).$set(true);
-      console.log(aRef.name());
+      $scope.chatroom.$child('events/' + aRef.name()).$set(true);
     });
     $scope.createEventModal.remove();
   };
 })
 
 .controller('EventsCtrl', function($scope, FirebaseService) {
-  $scope.events = [];
-  var events = FirebaseService.getUsers().$child('sam').$child('events');
-  events.$on('loaded', function(aEventIds) {
-    angular.forEach(aEventIds,function(aEventValue, aEventId) {
-      console.log("==111==" + aEventId);
-      var event = FirebaseService.getEvents().$child(aEventId);
-      console.log("event " + event);
-      // todo: need a way to display all events to the UI.
-      $scope.events.push(event);
+  var eventsRef = FirebaseService.getUsers().$child('sam/events');
+  eventsRef.$on('loaded', function(aEvents) {
+    $scope.events = [];
+
+    angular.forEach(aEvents,function(aEventValue, aEventId) {
+      var eventRef = FirebaseService.getEvents().$child(aEventId);
+      $scope.events.push(eventRef);
     });
   });
-  $scope.events
 })
 
 .controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {

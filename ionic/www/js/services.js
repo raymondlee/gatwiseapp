@@ -3,18 +3,22 @@ angular.module('gatwise.services', [])
 .factory('FirebaseService', function($firebase) {
     var ref = new Firebase("https://gatwise.firebaseio.com/");
     var firebaseRef = $firebase(ref); 
+    var chatsRef = firebaseRef.$child('chats');
+    var eventsRef = firebaseRef.$child('events');
+    var usersRef = firebaseRef.$child('users');
+
     return {
       getRoot: function() {
         return firebaseRef;
       },
       getChats: function() {
-        return this.getRoot().$child('chats');
+        return chatsRef;
       },
       getEvents: function() {
-        return this.getRoot().$child('events');
+        return eventsRef;
       },
       getUsers: function() {
-        return this.getRoot().$child('users');
+        return usersRef;
       }
     }
 })
@@ -34,8 +38,6 @@ angular.module('gatwise.services', [])
       angular.forEach(chats, function(aValue, aName) {
         if (aValue['id'] == aChatId) {
           chat = aValue;
-          // todo check
-          return true;
         }
       });
       return chat;
