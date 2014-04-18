@@ -2,10 +2,20 @@ angular.module('gatwise.services', [])
 
 .factory('FirebaseService', function($firebase) {
     var ref = new Firebase("https://gatwise.firebaseio.com/");
+    var firebaseRef = $firebase(ref); 
     return {
       getRoot: function() {
-        return $firebase(ref);
-      }      
+        return firebaseRef;
+      },
+      getChats: function() {
+        return this.getRoot().$child('chats');
+      },
+      getEvents: function() {
+        return this.getRoot().$child('events');
+      },
+      getUsers: function() {
+        return this.getRoot().$child('users');
+      }
     }
 })
 

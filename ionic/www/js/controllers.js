@@ -53,7 +53,8 @@ angular.module('gatwise.controllers', [])
     $scope.events.$add({
       name: $scope.chat.event.name,
       when: $scope.chat.event.when,
-      where: $scope.chat.event.where
+      where: $scope.chat.event.where,
+      chatId: $stateParams.chatId
     }).then(function(aRef) {
       $scope.chatroom.$child('events').$child(aRef.name()).$set(true);
       console.log(aRef.name());
@@ -62,8 +63,8 @@ angular.module('gatwise.controllers', [])
   };
 })
 
-.controller('EventsCtrl', function($scope, Friends) {
-  $scope.friends = Friends.all();
+.controller('EventsCtrl', function($scope, FirebaseService) {
+  $scope.events = FirebaseService.getRoot().$child('events');
 })
 
 .controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
