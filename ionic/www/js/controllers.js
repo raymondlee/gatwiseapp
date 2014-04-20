@@ -130,4 +130,10 @@ angular.module('gatwise.controllers', [])
   $scope.$on('$destroy', function() {
     $scope.modal.remove();
   });
+})
+
+.controller('RegisterCtrl', function($scope, $stateParams) {
+  $scope.register = function() {
+    console.log($scope.register.username);  
+  }  
 });

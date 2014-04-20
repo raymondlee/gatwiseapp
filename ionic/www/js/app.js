@@ -21,6 +21,12 @@ angular.module('gatwise', ['ionic', 'firebase', 'gatwise.controllers', 'gatwise.
   // Each state's controller can be found in controllers.js
   $stateProvider
 
+    .state('register', {
+      url: "/register",
+      templateUrl: 'templates/register.html',
+      controller: 'RegisterCtrl'
+    })
+
     // setup an abstract state for the tabs directive
     .state('tab', {
       url: "/tab",
@@ -74,7 +80,7 @@ angular.module('gatwise', ['ionic', 'firebase', 'gatwise.controllers', 'gatwise.
     })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/chats');
+  $urlRouterProvider.otherwise('/register');
 
 })
 
