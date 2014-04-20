@@ -1,5 +1,5 @@
 bowser install ionic
 bowser install firebase
 bowser install angularfire
-
+bower install ngstorage
 

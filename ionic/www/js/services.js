@@ -17,8 +17,8 @@ angular.module('gatwise.services', [])
       getEvents: function() {
         return eventsRef;
       },
-      getUsers: function() {
-        return usersRef;
+      getUsers: function(aIsFirebaseObj) {
+        return aIsFirebaseObj ? ref.child('users') : usersRef;
       }
     }
 })

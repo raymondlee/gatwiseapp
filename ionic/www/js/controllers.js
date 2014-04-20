@@ -132,8 +132,23 @@ angular.module('gatwise.controllers', [])
   });
 })
 
-.controller('RegisterCtrl', function($scope, $stateParams) {
+.controller('RegisterCtrl', function($scope, $firebase, $location, FirebaseService) {
   $scope.register = function() {
-    console.log($scope.register.username);  
+    var usersRef = FirebaseService.getUsers(true);
+    usersRef.child($scope.register.username).once('value', function(aSnapshot) {
+      var exists = (aSnapshot.val() !== null);
+      if (!exists) {
+        var uuid = "test";
+        /*
+        if (device) {
+          uuid = device.uuid
+        } else {
+          uuid = "test";
+        }
+        */
+        $firebase(usersRef).$child($scope.register.username + "/" + uuid).$set(true);
+      }
+      $location.url("/tab/chats");
+    });
   }  
 });
