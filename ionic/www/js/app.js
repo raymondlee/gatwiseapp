@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('gatwise', ['ionic', 'firebase', 'gatwise.controllers', 'gatwise.services'])
+angular.module('gatwise', ['ionic', 'firebase', 'ngStorage', 'gatwise.controllers', 'gatwise.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

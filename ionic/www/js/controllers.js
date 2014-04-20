@@ -132,7 +132,13 @@ angular.module('gatwise.controllers', [])
   });
 })
 
-.controller('RegisterCtrl', function($scope, $firebase, $location, FirebaseService) {
+.controller('RegisterCtrl', function($scope, $firebase, $location, $localStorage, FirebaseService) {
+  $scope.$storage = $localStorage;
+  if ($scope.$storage.username) {
+    console.log("Has local username " + $scope.$storage.username);
+    $location.url("/tab/chats");
+  }
+
   $scope.register = function() {
     var usersRef = FirebaseService.getUsers(true);
     usersRef.child($scope.register.username).once('value', function(aSnapshot) {
@@ -146,8 +152,12 @@ angular.module('gatwise.controllers', [])
           uuid = "test";
         }
         */
+        console.log("Has no server username and creating... " + $scope.register.username)
         $firebase(usersRef).$child($scope.register.username + "/" + uuid).$set(true);
+      } else {
+        console.log("Has server username " + $scope.register.username)
       }
+      $scope.$storage.username = $scope.register.username;
       $location.url("/tab/chats");
     });
   }  
