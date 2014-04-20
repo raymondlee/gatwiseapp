@@ -289,8 +289,8 @@ $item-button-line-height:         32px !default;
 $item-icon-font-size:             32px !default;
 $item-icon-fill-font-size:        28px !default;
 
-$item-avatar-width:               40px !default;
-$item-avatar-height:              40px !default;
+$item-avitar-width:               40px !default;
+$item-avitar-height:              40px !default;
 
 $item-thumbnail-width:            80px !default;
 $item-thumbnail-height:           80px !default;
@@ -361,24 +361,6 @@ $item-default-active-bg:          #D9D9D9 !default;
 $item-default-active-border:      $item-light-active-border !default;
 
 
-// Item Editing
-// -------------------------------
-
-$item-edit-transition-duration:   250ms !default;
-$item-edit-transition-function:   ease-in-out !default;
-
-$item-left-edit-left:             8px !default;  // item's left side edit's "left" property
-
-$item-right-edit-open-width:      50px !default;
-$item-left-edit-open-width:       50px !default;
-
-$item-delete-icon-size:           24px !default;
-$item-delete-icon-color:          $assertive !default;
-
-$item-reorder-icon-size:          32px !default;
-$item-reorder-icon-color:         $dark !default;
-
-
 // Lists
 // -------------------------------
 
@@ -417,13 +399,6 @@ $input-border:                    $item-default-border !default;
 $input-border-width:              $item-border-width !default;
 $input-label-color:               $dark !default;
 $input-color-placeholder:         lighten($dark, 40%) !default;
-
-
-// Progress
-// -------------------------------
-
-$progress-width:                  100% !default;
-$progress-margin:                 15px auto !default;
 
 
 // Toggle
@@ -554,6 +529,7 @@ $modal-inset-mode-right:          20% !default;
 $modal-inset-mode-bottom:         20% !default;
 $modal-inset-mode-left:           20% !default;
 $modal-inset-mode-min-height:     240px !default;
+$modal-inset-mode-max-width:      768px !default;
 
 
 // Grids
@@ -636,7 +612,6 @@ $badge-default-text:              #AAAAAA !default;
 // -------------------------------
 
 $z-index-action-sheet:            11 !default;
-$z-index-badge:                   1 !default;
 $z-index-bar:                     10 !default;
 $z-index-bar-title:               0 !default;
 $z-index-bar-button:              1 !default;
@@ -654,7 +629,6 @@ $z-index-pane:                    1 !default;
 $z-index-popup:                   11 !default;
 $z-index-popup-backdrop:          10 !default;
 $z-index-scroll-bar:              9999 !default;
-$z-index-slider-pager:            1 !default;
 $z-index-tabs:                    5 !default;
 $z-index-view:                    1 !default;
 
