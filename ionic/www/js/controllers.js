@@ -8,7 +8,7 @@ angular.module('gatwise.controllers', [])
   }
 })
 
-.controller('ChatCtrl', function($scope, $ionicModal, $stateParams, ChatService, FirebaseService) {
+.controller('ChatCtrl', function($rootScope, $scope, $ionicModal, $stateParams, ChatService, FirebaseService) {
   $scope.chat = ChatService.get($stateParams.chatId);
 
   var tabs = document.querySelectorAll('div.tabs')[0];
@@ -56,13 +56,14 @@ angular.module('gatwise.controllers', [])
       chatId: $stateParams.chatId
     }).then(function(aRef) {
       $scope.chatroom.$child('events/' + aRef.name()).$set(true);
+      // FirebaseService.getUsers().$child($rootScope.username + '/events/' + aRef.name()).$set(true);
     });
     $scope.createEventModal.remove();
   };
 })
 
-.controller('EventsCtrl', function($scope, FirebaseService) {
-  var eventsRef = FirebaseService.getUsers().$child('sam/events');
+.controller('EventsCtrl', function($rootScope, $scope, FirebaseService) {
+  var eventsRef = FirebaseService.getUsers().$child($rootScope.username + '/events');
   eventsRef.$on('loaded', function(aEvents) {
     $scope.events = [];
 
@@ -132,10 +133,11 @@ angular.module('gatwise.controllers', [])
   });
 })
 
-.controller('RegisterCtrl', function($scope, $firebase, $location, $localStorage, FirebaseService) {
+.controller('RegisterCtrl', function($rootScope, $scope, $firebase, $location, $localStorage, FirebaseService) {
   $scope.$storage = $localStorage;
   if ($scope.$storage.username) {
     console.log("Has local username " + $scope.$storage.username);
+    $rootScope.username = $scope.$storage.username;
     $location.url("/tab/chats");
   }
 
@@ -158,6 +160,7 @@ angular.module('gatwise.controllers', [])
         console.log("Has server username " + $scope.register.username)
       }
       $scope.$storage.username = $scope.register.username;
+      $rootScope.username = $scope.$storage.username;
       $location.url("/tab/chats");
     });
   }  
