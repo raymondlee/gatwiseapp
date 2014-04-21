@@ -15,7 +15,7 @@ angular.module('gatwise.controllers', [])
   tabs = angular.element(tabs);
   tabs.css('display', 'none');
 
-  $scope.chatroom = FirebaseService.getChats().$child($stateParams.chatId);
+  $scope.chatroom = FirebaseService.getChats().$child($rootScope.username + '/' + $stateParams.chatId);
   $scope.messages =  $scope.chatroom.$child('messages');
   $scope.events = FirebaseService.getEvents();
   $scope.username = "Hi ";
