@@ -30,13 +30,14 @@ angular.module('gatwise.controllers', [])
 
   $scope.addMessage = function(e) {
     if (e && e.keyCode != 13) return;
-    $scope.messages.$add({
+    var messageObj = {
       username: $scope.username,
       message: $scope.chatroom.newMessage
-    }).then(function(aRef) {
-      console.log(aRef.name());
+    };
+    $scope.messages.$add(messageObj).then(function(aRef) {
+      FirebaseService.setMessageForChat($rootScope.username, $stateParams.chatId, messageObj);
     });
-    $scope.chat.newMessage = "";
+    $scope.chatroom.newMessage = "";
   };
 
   $scope.$on('$destroy', function() {
@@ -101,7 +102,7 @@ angular.module('gatwise.controllers', [])
     var chatUserRef = FirebaseService.getChats($rootScope.username);
     var chatObj = {
       name: $scope.chat.name,
-      member: realMemebers
+      members: realMemebers
     };
     chatUserRef.$add(chatObj).then(function(aRef) {
       angular.forEach(realMemebers, function(aValue, aMember) {
