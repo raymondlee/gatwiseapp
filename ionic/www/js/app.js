@@ -53,6 +53,11 @@ angular.module('gatwise', ['ionic', 'firebase', 'ngStorage', 'gatwise.controller
         }
       }
     })
+    .state('createChat', {
+      url: '/create-chat',
+      templateUrl: 'templates/create-chat.html',
+      controller: 'CreateChatCtrl'
+    })
 
     .state('tab.events', {
       url: '/events',

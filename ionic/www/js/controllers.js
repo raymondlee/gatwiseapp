@@ -3,12 +3,16 @@ angular.module('gatwise.controllers', [])
 .controller('ChatsCtrl', function($scope, $location, ChatService) {
   $scope.chats = ChatService.all();
 
+  $scope.showCreateChat = function() {
+    $location.url('/create-chat');
+  };
+
   $scope.showSettings = function() {
     $location.url('/settings');
-  }
+  };
 })
 
-.controller('ChatCtrl', function($rootScope, $scope, $ionicModal, $stateParams, ChatService, FirebaseService) {
+.controller('ChatCtrl', function($rootScope, $scope, $stateParams, $ionicModal, ChatService, FirebaseService) {
   $scope.chat = ChatService.get($stateParams.chatId);
 
   var tabs = document.querySelectorAll('div.tabs')[0];
@@ -18,7 +22,7 @@ angular.module('gatwise.controllers', [])
   $scope.chatroom = FirebaseService.getChats().$child($rootScope.username + '/' + $stateParams.chatId);
   $scope.messages =  $scope.chatroom.$child('messages');
   $scope.events = FirebaseService.getEvents().$child($rootScope.username);
-  $scope.username = "Hi ";
+  $scope.username = $rootScope.username;
 
   $scope.addMessage = function(e) {
     if (e && e.keyCode != 13) return;
@@ -68,6 +72,12 @@ angular.module('gatwise.controllers', [])
     });
     $scope.createEventModal.remove();
   };
+})
+
+.controller('CreateChatCtrl', function($scope) {
+  $scope.createChat = function() {
+    console.log('createChat');
+  }
 })
 
 .controller('EventsCtrl', function($rootScope, $scope, FirebaseService) {
