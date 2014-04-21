@@ -1,7 +1,7 @@
 angular.module('gatwise.controllers', [])
 
-.controller('ChatsCtrl', function($scope, $location, ChatService) {
-  $scope.chats = ChatService.all();
+.controller('ChatsCtrl', function($rootScope, $scope, $location, FirebaseService) {
+  $scope.chats = FirebaseService.getChats($rootScope.username);
 
   $scope.showCreateChat = function() {
     $location.url('/create-chat');
@@ -12,14 +12,14 @@ angular.module('gatwise.controllers', [])
   };
 })
 
-.controller('ChatCtrl', function($rootScope, $scope, $stateParams, $ionicModal, ChatService, FirebaseService) {
+.controller('ChatCtrl', function($rootScope, $scope, $stateParams, $ionicModal, FirebaseService) {
   $scope.chat = ChatService.get($stateParams.chatId);
 
   var tabs = document.querySelectorAll('div.tabs')[0];
   tabs = angular.element(tabs);
   tabs.css('display', 'none');
 
-  $scope.chatroom = FirebaseService.getChats().$child($rootScope.username + '/' + $stateParams.chatId);
+  $scope.chatroom = FirebaseService.getChats($rootScope.username).$child($stateParams.chatId);
   $scope.messages =  $scope.chatroom.$child('messages');
   $scope.events = FirebaseService.getEvents().$child($rootScope.username);
   $scope.username = $rootScope.username;
@@ -74,10 +74,41 @@ angular.module('gatwise.controllers', [])
   };
 })
 
-.controller('CreateChatCtrl', function($scope) {
+.controller('CreateChatCtrl', function($rootScope, $scope, $location, FirebaseService) {
+  $scope.chat = {};
   $scope.createChat = function() {
-    console.log('createChat');
-  }
+    var members = $scope.chat.members.split(',');
+
+    // get rid of all the unavailable users.
+    var realMemebers = {};
+    realMemebers[$rootScope.username] = 'admin';
+
+    var usersRef = FirebaseService.getUsers(true);
+      angular.forEach(members, function(aMember) {
+        var member = aMember.trim();
+        usersRef.child(member).once('value', function(aSnapshot) {
+          var exists = (aSnapshot.val() !== null);
+          if (exists) {
+            realMemebers[member] = 'member';
+          }
+        });
+    });
+
+    var chatUserRef = FirebaseService.getChats($rootScope.username);
+    var chatObj = {
+      name: $scope.chat.name,
+      member: realMemebers
+    };
+    chatUserRef.$add(chatObj).then(function(aRef) {
+      angular.forEach(realMemebers, function(aValue, aMember) {
+        FirebaseService.getChats(aMember).$child(aRef.name()).$set(chatObj);
+      });
+    });
+    $location.url('/tab/chats');
+  };
+  $scope.closeCreateChat = function() {
+    $location.url('/tab/chats');
+  };
 })
 
 .controller('EventsCtrl', function($rootScope, $scope, FirebaseService) {
