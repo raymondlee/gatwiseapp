@@ -33,11 +33,13 @@ angular.module('gatwise.services', [])
       },
       setMessageForChat: function(aUsername, aChatId, aMessageObj) {
         var that = this;
-        this.getMembersInChat(aUsername, aChatId, function(aMemberObj) {
-          angular.forEach(aMemberObj, function(aValue, aMemberKey) {
-            if (aUsername != aMemberKey) {
-              that.getChats(aMemberKey).$child(aChatId + '/messages').$add(aMessageObj);
-            }
+        this.getChats(aUsername).$child(aChatId + '/messages').$add(aMessageObj).then(function(aRef) {
+          that.getMembersInChat(aUsername, aChatId, function(aMemberObj) {
+            angular.forEach(aMemberObj, function(aValue, aMemberKey) {
+              if (aUsername != aMemberKey) {
+                that.getChats(aMemberKey).$child(aChatId + '/messages/' + aRef.name()).$set(aMessageObj);
+              }
+            });
           });
         });
       }

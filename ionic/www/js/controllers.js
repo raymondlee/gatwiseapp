@@ -34,9 +34,7 @@ angular.module('gatwise.controllers', [])
       username: $scope.username,
       message: $scope.chatroom.newMessage
     };
-    $scope.messages.$add(messageObj).then(function(aRef) {
-      FirebaseService.setMessageForChat($rootScope.username, $stateParams.chatId, messageObj);
-    });
+    FirebaseService.setMessageForChat($rootScope.username, $stateParams.chatId, messageObj);
     $scope.chatroom.newMessage = "";
   };
 
