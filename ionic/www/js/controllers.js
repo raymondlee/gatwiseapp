@@ -60,13 +60,14 @@ angular.module('gatwise.controllers', [])
 
   $scope.submitEvent = function() {
     $scope.createEventModal.hide();
-    $scope.events = FirebaseService.getEvents().$child($rootScope.username);
+    $scope.events = FirebaseService.getEvents($rootScope.username);
 
     // create the event object
     var eventObj = {
       name: $scope.chatroom.event.name,
       when: $scope.chatroom.event.when,
-      where: $scope.chatroom.event.where
+      where: $scope.chatroom.event.where,
+      chatId: $stateParams.chatId
     };
 
     // add the event object to firebase
@@ -96,15 +97,7 @@ angular.module('gatwise.controllers', [])
 })
 
 .controller('EventsCtrl', function($rootScope, $scope, FirebaseService) {
-  var eventsRef = FirebaseService.getUsers().$child($rootScope.username + '/events');
-  eventsRef.$on('loaded', function(aEvents) {
-    $scope.events = [];
-
-    angular.forEach(aEvents,function(aEventValue, aEventId) {
-      var eventRef = FirebaseService.getEvents().$child(aEventId);
-      $scope.events.push(eventRef);
-    });
-  });
+  $scope.events = FirebaseService.getEvents($rootScope.username);
 })
 
 .controller('SettingsCtrl', function($scope, $location, $ionicModal, ContactService) {
