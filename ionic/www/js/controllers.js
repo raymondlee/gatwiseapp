@@ -25,7 +25,7 @@ angular.module('gatwise.controllers', [])
   
   $scope.chatroom = FirebaseService.getChats($rootScope.username).$child($stateParams.chatId);
   $scope.messages =  $scope.chatroom.$child('messages');
-  $scope.events = FirebaseService.getEvents().$child($rootScope.username);
+  $scope.events = $scope.chatroom.$child('events');
   $scope.username = $rootScope.username;
 
   $scope.addMessage = function(e) {
@@ -63,18 +63,20 @@ angular.module('gatwise.controllers', [])
   $scope.submitEvent = function() {
     $scope.createEventModal.hide();
     $scope.events = FirebaseService.getEvents().$child($rootScope.username);
-    $scope.events.$add({
-      name: $scope.chat.event.name,
-      when: $scope.chat.event.when,
-      where: $scope.chat.event.where,
-      chatId: $stateParams.chatId // FIXME, use firebase generated ID instead
-    }).then(function(aRef) {
-      $scope.chatroom.$child('events/' + aRef.name()).$set({
-        name: $scope.chat.event.name,
-        when: $scope.chat.event.when,
-        where: $scope.chat.event.where
-      });      
+
+    // create the event object
+    var eventObj = {
+      name: $scope.chatroom.event.name,
+      when: $scope.chatroom.event.when,
+      where: $scope.chatroom.event.where
+    };
+
+    // add the event object to firebase
+    $scope.events.$add(eventObj).then(function(aRef) {
+      FirebaseService.addEvent($rootScope.username, $stateParams.chatId, aRef.name(), eventObj);
     });
+
+    // remove the event modal
     $scope.createEventModal.remove();
   };
 })
