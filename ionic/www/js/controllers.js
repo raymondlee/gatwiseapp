@@ -87,7 +87,7 @@ angular.module('gatwise.controllers', [])
       name: $scope.chat.name,
       members: members
     };
-    FirebaseService.createChat($rootScope.username, chatObj);
+    FirebaseService.addChat($rootScope.username, chatObj);
     $location.url('/tab/chats');
   };
   $scope.closeCreateChat = function() {

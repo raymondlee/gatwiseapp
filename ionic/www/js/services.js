@@ -57,7 +57,7 @@ angular.module('gatwise.services', [])
         });
       });      
     },
-    createChat: function(aUsername, aChatObj) {
+    addChat: function(aUsername, aChatObj) {
       var realMemebers = {};
       realMemebers[aUsername] = 'admin';
 
