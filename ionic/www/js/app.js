@@ -63,15 +63,6 @@ angular.module('gatwise', ['ionic', 'firebase', 'ngStorage', 'gatwise.controller
         }
       }
     })
-    .state('tab.friend-detail', {
-      url: '/friend/:friendId',
-      views: {
-        'tab-friends': {
-          templateUrl: 'templates/friend-detail.html',
-          controller: 'FriendDetailCtrl'
-        }
-      }
-    })
 
     .state('settings', {
       url: "/settings",

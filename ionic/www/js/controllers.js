@@ -78,10 +78,6 @@ angular.module('gatwise.controllers', [])
   });
 })
 
-.controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
-})
-
 .controller('SettingsCtrl', function($scope, $location, $ionicModal, ContactService) {
   $scope.save = function() {
     $location.url('/tab/chats');
