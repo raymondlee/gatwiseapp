@@ -35,16 +35,15 @@ angular.module('gatwise.services', [])
       var that = this;
       this.getChats(aUsername).$child(aChatId + '/messages').$add(aMessageObj).then(function(aRef) {
         that.getMembersInChat(aUsername, aChatId, function(aMemberObj) {
-          angular.forEach(aMemberObj, function(aValue, aMemberKey) {
-            if (aUsername != aMemberKey) {
-              that.getChats(aMemberKey).$child(aChatId + '/messages/' + aRef.name()).$set(aMessageObj);
+          angular.forEach(aMemberObj, function(aValue, aMember) {
+            if (aUsername != aMember) {
+              that.getChats(aMember).$child(aChatId + '/messages/' + aRef.name()).$set(aMessageObj);
             }
           });
         });
       });
     },
     addEvent: function(aUsername, aChatId, aEventRef, aEventObj) {
-      
       // add event to the current user
       this.getChats(aUsername).$child(aChatId).$child('events/' + aEventRef).$set(aEventObj);  
 
@@ -57,6 +56,32 @@ angular.module('gatwise.services', [])
           }
         });
       });      
+    },
+    createChat: function(aUsername, aChatObj) {
+      var realMemebers = {};
+      realMemebers[aUsername] = 'admin';
+
+      var usersRef = this.getUsers(true);
+        angular.forEach(aChatObj.members, function(aMember) {
+          var member = aMember.trim();
+          usersRef.child(member).once('value', function(aSnapshot) {
+          var exists = (aSnapshot.val() !== null);
+          if (exists) {
+            realMemebers[member] = 'member';
+          }
+        });
+      });
+      aChatObj.members = realMemebers;
+
+      var chatUserRef = this.getChats(aUsername);
+      var that = this;
+      chatUserRef.$add(aChatObj).then(function(aRef) {
+        angular.forEach(realMemebers, function(aValue, aMember) {
+          if (aMember != aUsername) {
+            that.getChats(aMember).$child(aRef.name()).$set(aChatObj);
+          }
+        });
+      });
     }
   };
 })

@@ -83,32 +83,11 @@ angular.module('gatwise.controllers', [])
   $scope.chat = {};
   $scope.createChat = function() {
     var members = $scope.chat.members.split(',');
-
-    // get rid of all the unavailable users.
-    var realMemebers = {};
-    realMemebers[$rootScope.username] = 'admin';
-
-    var usersRef = FirebaseService.getUsers(true);
-      angular.forEach(members, function(aMember) {
-        var member = aMember.trim();
-        usersRef.child(member).once('value', function(aSnapshot) {
-          var exists = (aSnapshot.val() !== null);
-          if (exists) {
-            realMemebers[member] = 'member';
-          }
-        });
-    });
-
-    var chatUserRef = FirebaseService.getChats($rootScope.username);
     var chatObj = {
       name: $scope.chat.name,
-      members: realMemebers
+      members: members
     };
-    chatUserRef.$add(chatObj).then(function(aRef) {
-      angular.forEach(realMemebers, function(aValue, aMember) {
-        FirebaseService.getChats(aMember).$child(aRef.name()).$set(chatObj);
-      });
-    });
+    FirebaseService.createChat($rootScope.username, chatObj);
     $location.url('/tab/chats');
   };
   $scope.closeCreateChat = function() {
