@@ -6,7 +6,7 @@
 
   <ion-content class="has-header">
     <ion-list>
-      <ion-item ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chat/">
+      <ion-item ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chat/{{chat.id}}">
         {{chat.name}}
       </ion-item>
     </ion-list>

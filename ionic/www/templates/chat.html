@@ -1,4 +1,4 @@
-<ion-view title="{{chat.name}}">
+<ion-view title="{{chatroom.name}}">
   <ion-nav-buttons side="right">
     <button class="button-icon icon ion-coffee" style="color: #FFF" ng-click="showEventModal();"></button>
   </ion-nav-buttons>
@@ -6,7 +6,7 @@
     <div ng-repeat="event in events">Name: {{event.name}}<br/>Where: {{event.where}}<br/>When: {{event.when}}<hr/></div>
     <div>
       <label class="item item-input">
-        <input type="text" ng-model="chat.newMessage" ng-keydown="addMessage($event);"placeholder="Message..."></input>
+        <input type="text" ng-model="chatroom.newMessage" ng-keydown="addMessage($event);"placeholder="Message..."></input>
       </label>
       <button class="button chat-enter-button" ng-click="addMessage();">Go</button>
     </div>
