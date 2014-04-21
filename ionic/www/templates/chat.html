@@ -5,8 +5,10 @@
   <ion-content class="has-header" padding="true">
     <div ng-repeat="event in events">Name: {{event.name}}<br/>Where: {{event.where}}<br/>When: {{event.when}}<hr/></div>
     <div>
-       <input id="chat-input-box" type="text" ng-model="chat.newMessage" ng-keydown="addMessage($event);" placeholder="Message..."></input>
-       <button class="button chat-enter-button" ng-click="addMessage();">Go</button>
+      <label class="item item-input">
+        <input type="text" ng-model="chat.newMessage" ng-keydown="addMessage($event);"placeholder="Message..."></input>
+      </label>
+      <button class="button chat-enter-button" ng-click="addMessage();">Go</button>
     </div>
     <div class="messages-container">
       <div ng-repeat="message in messages"><em>{{message.username}}</em>: {{message.message}}</div>
