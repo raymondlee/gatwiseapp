@@ -1,6 +1,6 @@
 <ion-view title="{{chat.name}}">
   <ion-nav-buttons side="right">
-    <button class="button-icon icon ion-coffee" style="color: #FFF" ng-click="addEvent();"></button>
+    <button class="button-icon icon ion-coffee" style="color: #FFF" ng-click="showEventModal();"></button>
   </ion-nav-buttons>
   <ion-content class="has-header" padding="true">
     <div ng-repeat="event in events">Name: {{event.name}}<br/>Where: {{event.where}}<br/>When: {{event.when}}<hr/></div>

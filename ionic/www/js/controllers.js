@@ -43,8 +43,12 @@ angular.module('gatwise.controllers', [])
     $scope.createEventModal = aModal;    
   });
 
-  $scope.addEvent = function() {
+  $scope.showEventModal = function() {
     $scope.createEventModal.show();
+  };
+
+  $scope.closeEventModal = function() {
+    $scope.createEventModal.remove();
   };
 
   $scope.submitEvent = function() {
