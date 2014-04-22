@@ -83,6 +83,18 @@ angular.module('gatwise.services', [])
           });
         });      
       });
+    },
+    joinEvent: function(aUsername, aChatId, aEventId, aJoin) {
+      var that = this;
+      var joinerObj = {};
+      joinerObj[aUsername] = aJoin;
+
+      this.getMembersInChat(aUsername, aChatId, function(aMemberObj) {
+        angular.forEach(aMemberObj, function(aValue, aMember) {
+          that.getChats(aMember).$child(aChatId + '/events/' + aEventId + "/joiners").$update(joinerObj);
+          that.getEvents(aMember).$child(aEventId + "/joiners").$update(joinerObj);
+        });
+      });
     }
   };
 })

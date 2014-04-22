@@ -2,10 +2,10 @@ angular.module('gatwise.controllers', [])
 
 .controller('ChatsCtrl', function($rootScope, $scope, $location, FirebaseService) {
   $scope.chats = FirebaseService.getChats($rootScope.username);
-  $scope.chats.$on("loaded", function() {
-    $scope.chatkeys = $scope.chats.$getIndex();
-    $scope.chatkeys.forEach(function(key, i) {
-      $scope.chats[key].id = key;
+  $scope.chats.$on('loaded', function() {
+    $scope.chatKeys = $scope.chats.$getIndex();
+    $scope.chatKeys.forEach(function(aKey, aIndex) {
+      $scope.chats[aKey].id = aKey;
     });
   });
 
@@ -23,10 +23,32 @@ angular.module('gatwise.controllers', [])
   tabs = angular.element(tabs);
   tabs.css('display', 'none');
   
+  $scope.username = $rootScope.username;
   $scope.chatroom = FirebaseService.getChats($rootScope.username).$child($stateParams.chatId);
   $scope.messages =  $scope.chatroom.$child('messages');
   $scope.events = $scope.chatroom.$child('events');
-  $scope.username = $rootScope.username;
+
+  var updateEvents = function() {
+    $scope.eventKeys = $scope.events.$getIndex();
+    $scope.eventKeys.forEach(function(aKey, aIndex) {
+      $scope.events[aKey].id = aKey;
+      var join = false;
+      if ('joiners' in $scope.events[aKey]) {
+        if ($rootScope.username in $scope.events[aKey].joiners) {
+          join = $scope.events[aKey].joiners[$rootScope.username];
+        }
+      }
+      $scope.events[aKey].join = join;
+    });
+  };
+  $scope.events.$on('loaded', updateEvents);
+  // XXX: when something changes within events, the custom data appended by us get lost.
+  $scope.events.$on('change', updateEvents);
+
+  $scope.toggleJoinEvent = function(aEventId) {
+    var join = $scope.events[aEventId].join;
+    FirebaseService.joinEvent($rootScope.username, $stateParams.chatId, aEventId, join);
+  };
 
   $scope.addMessage = function(e) {
     if (e && e.keyCode != 13) return;
@@ -62,7 +84,6 @@ angular.module('gatwise.controllers', [])
     $scope.createEventModal.hide();
     $scope.events = FirebaseService.getEvents($rootScope.username);
 
-    // create the event object
     var eventObj = {
       name: $scope.chatroom.event.name,
       when: $scope.chatroom.event.when,

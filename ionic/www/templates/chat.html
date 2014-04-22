@@ -3,10 +3,17 @@
     <button class="button-icon icon ion-coffee" style="color: #FFF" ng-click="showEventModal();"></button>
   </ion-nav-buttons>
   <ion-content class="has-header" padding="true">
-    <div ng-repeat="event in events">Name: {{event.name}}<br/>Where: {{event.where}}<br/>When: {{event.when}}<hr/></div>
+    <div ng-repeat="event in events">
+      Name: {{event.name}} (Going <input type="checkbox" ng-model="event.join" ng-change="toggleJoinEvent(event.id);"> )<br/>
+      Where: {{event.where}}<br/>
+      When: {{event.when}}<br/>
+      Going: <span ng-repeat="(joiner, join) in event.joiners"><span ng-if="join==true">{{joiner}} </span></span><br>
+      Not Going: <span ng-repeat="(joiner, join) in event.joiners"><span ng-if="join==false">{{joiner}} </span></span><br>
+      <hr>
+    </div>
     <div>
       <label class="item item-input">
-        <input type="text" ng-model="chatroom.newMessage" ng-keydown="addMessage($event);"placeholder="Message..."></input>
+        <input type="text" ng-model="chatroom.newMessage" ng-keydown="addMessage($event);" placeholder="Message..."></input>
       </label>
       <button class="button chat-enter-button" ng-click="addMessage();">Go</button>
     </div>
