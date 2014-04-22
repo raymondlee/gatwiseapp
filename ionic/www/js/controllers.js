@@ -3,8 +3,8 @@ angular.module('gatwise.controllers', [])
 .controller('ChatsCtrl', function($rootScope, $scope, $location, FirebaseService) {
   $scope.chats = FirebaseService.getChats($rootScope.username);
   $scope.chats.$on('loaded', function() {
-    $scope.chatKeys = $scope.chats.$getIndex();
-    $scope.chatKeys.forEach(function(aKey, aIndex) {
+    var chatKeys = $scope.chats.$getIndex();
+    chatKeys.forEach(function(aKey, aIndex) {
       $scope.chats[aKey].id = aKey;
     });
   });
@@ -29,8 +29,8 @@ angular.module('gatwise.controllers', [])
   $scope.events = $scope.chatroom.$child('events');
 
   var updateEvents = function() {
-    $scope.eventKeys = $scope.events.$getIndex();
-    $scope.eventKeys.forEach(function(aKey, aIndex) {
+    var eventKeys = $scope.events.$getIndex();
+    eventKeys.forEach(function(aKey, aIndex) {
       $scope.events[aKey].id = aKey;
       var join = false;
       if ('joiners' in $scope.events[aKey]) {
