@@ -34,7 +34,7 @@ angular.module('gatwise.controllers', [])
       username: $scope.username,
       message: $scope.chatroom.newMessage
     };
-    FirebaseService.setMessageForChat($rootScope.username, $stateParams.chatId, messageObj);
+    FirebaseService.sendMessageToChat($rootScope.username, $stateParams.chatId, messageObj);
     $scope.chatroom.newMessage = "";
   };
 
@@ -69,11 +69,7 @@ angular.module('gatwise.controllers', [])
       where: $scope.chatroom.event.where,
       chatId: $stateParams.chatId
     };
-
-    // add the event object to firebase
-    $scope.events.$add(eventObj).then(function(aRef) {
-      FirebaseService.addEvent($rootScope.username, $stateParams.chatId, aRef.name(), eventObj);
-    });
+    FirebaseService.addEvent($rootScope.username, $stateParams.chatId, eventObj);
 
     // remove the event modal
     $scope.createEventModal.remove();
