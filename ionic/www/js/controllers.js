@@ -82,21 +82,23 @@ angular.module('gatwise.controllers', [])
     $scope.whenOptions = [{id: whenIndex}];
     $scope.createEventModal.show();
   };
-
+  $scope.closeEventModal = function() {
+    $scope.createEventModal.remove();
+    // rest fields
+    $scope.chatroom.event.name = '';
+    whereIndex = 0;
+    whenIndex = 0;
+    $scope.whereOptions = [{id: whereIndex}];
+    $scope.whenOptions = [{id: whenIndex}];
+  };
   $scope.addWhere = function() {
     whereIndex++;
     $scope.whereOptions.push({id: whereIndex});
   };
-
   $scope.addWhen = function() {
     whenIndex++;
     $scope.whenOptions.push({id: whenIndex});
   };
-
-  $scope.closeEventModal = function() {
-    $scope.createEventModal.remove();
-  };
-
   $scope.submitEvent = function() {
     $scope.createEventModal.hide();
     $scope.events = FirebaseService.getEvents($rootScope.username);
@@ -109,8 +111,7 @@ angular.module('gatwise.controllers', [])
     };
     FirebaseService.addEvent($rootScope.username, $stateParams.chatId, eventObj);
 
-    // remove the event modal
-    $scope.createEventModal.remove();
+    $scope.closeEventModal();
   };  
 })
 
