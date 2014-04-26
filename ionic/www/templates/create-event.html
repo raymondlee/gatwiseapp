@@ -5,18 +5,15 @@
     </button>
     <h1 class="title">Create event</h1>
   </ion-header-bar>
-  <ion-content>
-    <span class="input-label">Name:</span>
+  <ion-content>    
     <label class="item item-input">
-      <input type="text" ng-model="chatroom.event.name" />
-	</label><br>
-    <span class="input-label">Where:</span>
+      <input type="text" ng-model="chatroom.event.name" placeholder="Name"/>
+	  </label><br>
     <label class="item item-input">
-      <input type="text" ng-model="chatroom.event.where"/>
-	</label><br>
-    <span class="input-label">When:</span>
+      <input type="text" ng-model="chatroom.event.where" placeholder="Where"/>
+	  </label><br>
     <label class="item item-input">
-      <input type="text" ng-model="chatroom.event.when"/>
+      <input type="date" ng-model="chatroom.event.when" placeholder="When"/>
     </label><br>
     <button class="button button-block button-positive" ng-click="submitEvent();">Create</button>
   </ion-content>
