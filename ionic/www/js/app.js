@@ -94,7 +94,7 @@ angular.module('gatwise', ['ionic', 'firebase', 'ngStorage', 'gatwise.controller
         $scope.$apply(function() {
           aModel.$setViewValue(aElement.val());
           var place = $scope.gPlace.getPlace();
-          console.log(place.geometry.location.lat() + "," + place.geometry.location.lat())
+          console.log(place.geometry.location.lat() + "," + place.geometry.location.lat());
         });
       });
     }
