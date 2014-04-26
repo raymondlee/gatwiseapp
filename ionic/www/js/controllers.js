@@ -72,8 +72,25 @@ angular.module('gatwise.controllers', [])
     $scope.createEventModal = aModal;    
   });
 
+  
+  // keep track of the where, when options
+  var whereIndex = 0;
+  var whenIndex = 0;
+
   $scope.showEventModal = function() {
+    $scope.whereOptions = [{id: whereIndex}];
+    $scope.whenOptions = [{id: whenIndex}];
     $scope.createEventModal.show();
+  };
+
+  $scope.addWhere = function() {
+    whereIndex++;
+    $scope.whereOptions.push({id: whereIndex});
+  };
+
+  $scope.addWhen = function() {
+    whenIndex++;
+    $scope.whenOptions.push({id: whenIndex});
   };
 
   $scope.closeEventModal = function() {
@@ -94,7 +111,7 @@ angular.module('gatwise.controllers', [])
 
     // remove the event modal
     $scope.createEventModal.remove();
-  };
+  };  
 })
 
 .controller('CreateChatCtrl', function($rootScope, $scope, $location, FirebaseService) {
