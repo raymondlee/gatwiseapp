@@ -80,7 +80,7 @@ angular.module('gatwise', ['ionic', 'firebase', 'ngStorage', 'gatwise.controller
 
 })
 
-.directive('googleAutocomplete', function() {
+.directive('googleautocomplete', function() {
   return {
     require: 'ngModel',
     link: function($scope, aElement, aAttrs, aModel) {
