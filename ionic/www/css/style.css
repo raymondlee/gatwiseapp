@@ -8,3 +8,7 @@
   width: 10px;
   float: right;
 }
+
+.pac-container {
+  pointer-events: auto;
+}
