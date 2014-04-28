@@ -76,6 +76,8 @@ angular.module('gatwise.controllers', [])
   // keep track of the where, when options
   var whereIndex = 0;
   var whenIndex = 0;
+  $scope.options = { watchEnter: true };
+  $scope.details = '';
 
   $scope.showEventModal = function() {
     $scope.whereOptions = [{id: whereIndex}];
@@ -85,11 +87,13 @@ angular.module('gatwise.controllers', [])
   $scope.closeEventModal = function() {
     $scope.createEventModal.remove();
     // rest fields
-    $scope.chatroom.event.name = '';
     whereIndex = 0;
     whenIndex = 0;
     $scope.whereOptions = [{id: whereIndex}];
     $scope.whenOptions = [{id: whenIndex}];
+    if ($scope.chatroom.event) {
+      $scope.chatroom.event.name = '';
+    }
   };
   $scope.addWhere = function() {
     whereIndex++;

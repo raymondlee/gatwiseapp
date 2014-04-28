@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('gatwise', ['ionic', 'firebase', 'ngStorage', 'gatwise.controllers', 'gatwise.services'])
+angular.module('gatwise', ['ionic', 'firebase', 'ngAutocomplete', 'ngStorage', 'gatwise.controllers', 'gatwise.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -78,27 +78,5 @@ angular.module('gatwise', ['ionic', 'firebase', 'ngStorage', 'gatwise.controller
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/register');
 
-})
-
-.directive('googleautocomplete', function() {
-  return {
-    require: 'ngModel',
-    link: function($scope, aElement, aAttrs, aModel) {
-      var options = {
-        types: [],
-        componentRestrictions: {}
-      };
-      $scope.gPlace = new google.maps.places.Autocomplete(aElement[0], options);
- 
-      google.maps.event.addListener($scope.gPlace, 'place_changed', function() {
-        $scope.$apply(function() {
-          aModel.$setViewValue(aElement.val());
-          var place = $scope.gPlace.getPlace();
-          console.log(place.geometry.location.lat() + "," + place.geometry.location.lat());
-        });
-      });
-    }
-  };
 });
-
 

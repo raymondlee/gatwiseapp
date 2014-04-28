@@ -5,18 +5,18 @@
     </button>
     <h1 class="title">Create event</h1>
   </ion-header-bar>
-  <ion-content padding="true">    
+  <ion-content padding="true">
     <label class="item item-input">
       <input type="text" ng-model="chatroom.event.name" placeholder="Name"/>
-  	</label>
+    </label>
     <div class="where">
       <label>Where?</label>
       <button class="button-icon icon ion-plus-round" ng-click="addWhere();"></button>
       <div class="where-option" ng-repeat="where in whereOptions">
         <label class="item item-input">
-          <input id="where.id" type="text" ng-model="where.place" placeholder="Where" googleautocomplete/>
-    	  </label>
-      </div>      
+          <input id="where.id" type="text" ng-model="where.place" options="options" details="details" placeholder="Where" ng-autocomplete/>
+        </label>
+      </div>
     </div>
     <div class="when">
       <label>When?</label>
@@ -25,7 +25,7 @@
         <label class="item item-input">
           <input id="when.id" type="date" ng-model="when.date" placeholder="When"/>
         </label>
-      </div>      
+      </div>
     </div>
     <button class="button button-block button-positive" ng-click="submitEvent();">Create</button>
   </ion-content>
